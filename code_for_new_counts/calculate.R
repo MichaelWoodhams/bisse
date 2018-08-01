@@ -1,3 +1,4 @@
+#setwd("/home/mdw2/Documents/botany/bisse/R/code_for_new_counts")
 library(diversitree)
 library(phangorn)
 library(phytools)
@@ -97,6 +98,9 @@ numTrees = 200 #set how many trees we want per parameter setting
 
 #Read in output paths and parameters from the command line
 args <- commandArgs(trailingOnly = TRUE)
+# Use this when single-stepping in rstudio:
+#args <- c("treeOutput/1-1-tree.txt", "none", 0.5, 1.5, 0.01, 0.01, 0.01, 0.01, "1-1")
+
 
 output.file = args[[1]]
 outputFileHeadersWritten = FALSE
