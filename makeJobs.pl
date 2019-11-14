@@ -9,6 +9,7 @@ my $lambda, $i, $mu0, $mu1, $q01, $q10, $code;
 my @lambdaTable = ("0.5 1.5","1 1","1.5 0.5","0.2 1.8","1.8 0.2");
 my @muTable = (0.01,0.25,0.5,0.8);
 my @qTable = (0.01,0.05,0.1);
+my $nTrees = shift || 500; 
 for $i (0..719) {
     $lambda = $lambdaTable[int($i/144)];
     $q10 =  $qTable[int($i/48) % 3];
@@ -20,6 +21,6 @@ for $i (0..719) {
     if ($mu0 > $lambda0) {$code = "2-". ($i+1);}
     if ($mu1 > $lambda1) {$code = "3-". ($i+1);}
     
-    print("[ -e treeOutput/$code-tree.txt  ] || /usr/bin/R < randomStartsAmazon.R --slave --args treeOutput/$code-tree.txt nodeOutput/$code-node.txt $lambda $mu0 $mu1 $q01 $q10 $code\n");
+    print("[ -e treeOutput/$code-tree.txt  ] || (time /usr/bin/R < MonteCarloASR.R --slave --args treeOutput/$code-tree.txt nodeOutput/$code-node.txt $lambda $mu0 $mu1 $q01 $q10 $code $nTrees) &> textOutput/$code.out\n");
     # It is not possible to have code 2 and code 3 conditions apply at same time.
 }
